@@ -111,7 +111,7 @@ node {baseDir}/scripts/search-wrapper.mjs --location "重庆" --keywords "AI 智
 
 ## 退出码与错误行为（便于自动化/定时任务）
 
-- 缺少 `TAVILY_API_KEY`：退出码 1
+- 缺少 `TAVILY_API_KEY`：会提示用户交互输入；若用户未输入则退出码 1
 - 缺少必填参数 `--location` / `--keywords`：退出码 1
 - 调用搜索服务失败或发生未捕获错误：退出码 1
 - 未找到结果或筛选后为空：正常退出（退出码 0），并输出提示信息

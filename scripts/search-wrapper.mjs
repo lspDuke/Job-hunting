@@ -9,14 +9,33 @@ import { parseArgs } from 'node:util';
 import process from 'node:process';
 import fs from 'node:fs';
 import fetch from 'node-fetch';
+import readline from 'node:readline';
 
 // TAVILY_API_KEY 从环境变量继承（OpenClaw 已配置）
-const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
+let TAVILY_API_KEY = process.env.TAVILY_API_KEY;
+
+async function promptForKey(keyName) {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+  const question = (text) =>
+    new Promise((resolve) => rl.question(text, resolve));
+
+  try {
+    const value = (await question(`未检测到 ${keyName}，请输入后回车（仅用于本次运行，不会写入文件）：`)).trim();
+    return value;
+  } finally {
+    rl.close();
+  }
+}
 
 if (!TAVILY_API_KEY) {
-  console.error('错误: 环境变量中未找到 TAVILY_API_KEY');
-  console.error('请在 OpenClaw 配置中设置 TAVILY_API_KEY 后再使用');
-  process.exit(1);
+  TAVILY_API_KEY = await promptForKey('TAVILY_API_KEY');
+  if (!TAVILY_API_KEY) {
+    console.error('错误: 未提供 TAVILY_API_KEY，无法继续执行');
+    process.exit(1);
+  }
 }
 
 // 解析命令行参数
