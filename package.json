@@ -1,0 +1,20 @@
+{
+  "name": "job-search-agent",
+  "version": "1.0.0",
+  "description": "智能招聘搜索技能 - 根据用户提供的所在地、目标岗位或简历信息，自动搜索各大招聘平台的最新职位信息并整理成表格",
+  "main": "scripts/search-wrapper.mjs",
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "keywords": [
+    "job",
+    "recruitment",
+    "search",
+    "tavily",
+    "ai",
+    "招聘"
+  ],
+  "author": "OpenClaw Community",
+  "license": "MIT"
+}
